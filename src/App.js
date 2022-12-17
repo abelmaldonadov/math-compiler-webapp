@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import { FormulaInput } from "./components/formula-input/FormulaInput"
+import { getExpression } from "./Constants"
 
-function App() {
+export const App = () => {
+  const formula = { ...getExpression() }
+  const saveFormula = () => {}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="header">
+        <h2>Fórmulas de conceptos de remuneraciones</h2>
+      </div>
+      <div className="body">
+        <h2>Fórmula</h2>
+        <div className="box flex-center">
+          <FormulaInput formula={formula} onSaveFormula={saveFormula} />
+        </div>
+      </div>
+      <div className="footer">
+        <h2>Controls</h2>
+        <div className="box"></div>
+      </div>
     </div>
-  );
+  )
 }
-
-export default App;
