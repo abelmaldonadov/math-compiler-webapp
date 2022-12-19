@@ -13,9 +13,6 @@ html {
     padding: 10px;
     min-height: 75px;
     width: 100%;
-}
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow-x: auto;
+    max-width: 100%;
 }

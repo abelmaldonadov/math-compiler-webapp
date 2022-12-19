@@ -1,0 +1,19 @@
+.container {
+    display: block;
+    width: 100%;
+}
+.canvas {
+    padding: 10px;
+    background: #ffffff;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttons {
+    padding: 10px;
+    background: #ffeded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
