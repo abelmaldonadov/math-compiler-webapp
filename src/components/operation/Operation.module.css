@@ -2,10 +2,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 15px 5px 5px;
-    background: white;
-    position: relative;
-}
-.container:hover {
-    border: 1px solid #f58b8b;
 }

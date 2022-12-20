@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react"
-import { getElem } from "../../Constants"
 import css from "./ResizableBox.module.css"
 import { Operation } from "../operation/Operation"
 
 export const ResizableBox = ({ elem, modifyElem }) => {
   const id = elem.id
-  const [type, setType] = useState(elem.type || getElem().type)
+  const [type, setType] = useState(elem.type)
   const [coefficient, setCoefficient] = useState(elem.coefficient)
   const [name, setName] = useState(elem.name)
-  const [variable, setVariable] = useState(elem.variable || "")
+  const [value, setValue] = useState(elem.value)
 
   useEffect(() => {
-    modifyElem({ id, type, coefficient, name, variable })
-  }, [type, coefficient, name, variable])
+    modifyElem({ id, type, coefficient, name, value })
+  }, [type, coefficient, name, value])
 
   const handleChangeType = (e) => {
     setType(e.target.value)
@@ -23,21 +22,28 @@ export const ResizableBox = ({ elem, modifyElem }) => {
   const handleChangeName = (e) => {
     setName(e.target.value)
   }
-  const handleChangeVariable = (e) => {
-    setVariable(e)
+  const handleChangeValue = (e) => {
+    setValue(e)
   }
 
   return (
     <div className={css.container}>
       {type === "CONSTANT" && (
         <input
+          className={css.input}
           type="text"
           value={elem.coefficient}
           onChange={handleChangeCoefficient}
         />
       )}
       {type === "VARIABLE" && (
-        <Operation expression={variable} setExpression={handleChangeVariable} />
+        <>
+          {value === null ? (
+            <span>{name}</span>
+          ) : (
+            <Operation expression={value} setExpression={handleChangeValue} />
+          )}
+        </>
       )}
     </div>
   )

@@ -8,4 +8,9 @@
 }
 .close {
     cursor: pointer;
+    padding-left: 2px;
 }
+.more {
+    margin-left: 2px;
+}
+

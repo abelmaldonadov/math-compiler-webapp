@@ -3,20 +3,21 @@ import { ResizableBox } from "../resizable-box/ResizableBox"
 
 export const AdditionPreset = ({
   id,
-  operator,
   elems,
   modifyElem,
   handleClickMoreElem,
-  handleClickCloseElem,
+  handleClickCloseExpression,
 }) => {
   return (
     <div className={css.container}>
-      <span>{operator}</span>
+      <span>SUM</span>
       {elems.map((item) => (
         <ResizableBox key={item.id} elem={item} modifyElem={modifyElem} />
       ))}
-      <button onClick={handleClickMoreElem}>+</button>
-      <span className={css.close} onClick={() => handleClickCloseElem(id)}>
+      <button className={css.more} onClick={handleClickMoreElem}>
+        +
+      </button>
+      <span className={css.close} onClick={handleClickCloseExpression}>
         &times;
       </span>
     </div>

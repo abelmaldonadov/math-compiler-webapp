@@ -7,7 +7,7 @@ const ELEM = {
   type: "CONSTANT",
   coefficient: 1.0,
   name: "",
-  variable: null,
+  value: null,
 }
 const EXPRESSION = {
   decimalTreat: "DECIMAL",

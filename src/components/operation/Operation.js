@@ -6,16 +6,16 @@ import { PowerPreset } from "../presets/PowerPreset"
 import { RootPreset } from "../presets/RootPreset"
 import css from "./Operation.module.css"
 import { useEffect, useState } from "react"
-import { getElem } from "../../Constants"
+import { getElem, getExpression } from "../../Constants"
 
-export const Operation = ({ expression, setExpression }) => {
-  const id = expression.id
+export const Operation = ({ expression, modifyExpression }) => {
+  const [id, setId] = useState(expression.id)
   const [operator, setOperator] = useState(expression.operator)
   const [elems, setElems] = useState(expression.elems)
 
   useEffect(() => {
-    setExpression({ ...expression, operator, elems })
-  }, [operator, elems])
+    modifyExpression({ ...expression, operator, elems })
+  }, [id, operator, elems])
 
   const modifyElem = (e) => {
     let newElems = [...elems]
@@ -32,6 +32,9 @@ export const Operation = ({ expression, setExpression }) => {
     newElems = newElems.filter((item) => item.id !== id)
     setElems(newElems)
   }
+  const handleClickCloseExpression = () => {
+    modifyExpression({ ...getExpression() })
+  }
 
   switch (operator) {
     case "ADDITION":
@@ -39,11 +42,10 @@ export const Operation = ({ expression, setExpression }) => {
         <div className={css.container}>
           <AdditionPreset
             id={id}
-            operator={operator}
             elems={elems}
             modifyElem={modifyElem}
             handleClickMoreElem={handleClickMoreElem}
-            handleClickCloseElem={handleClickCloseElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )
@@ -52,11 +54,9 @@ export const Operation = ({ expression, setExpression }) => {
         <div className={css.container}>
           <SubtractionPreset
             id={id}
-            operator={operator}
-            setOperator={setOperator}
             elems={elems}
-            setElems={setElems}
             modifyElem={modifyElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )
@@ -66,10 +66,10 @@ export const Operation = ({ expression, setExpression }) => {
           <MultiplicationPreset
             id={id}
             operator={operator}
-            setOperator={setOperator}
             elems={elems}
-            setElems={setElems}
             modifyElem={modifyElem}
+            handleClickCloseExpression={handleClickCloseExpression}
+            handleClickMoreElem={handleClickMoreElem}
           />
         </div>
       )
@@ -79,10 +79,9 @@ export const Operation = ({ expression, setExpression }) => {
           <DivisionPreset
             id={id}
             operator={operator}
-            setOperator={setOperator}
             elems={elems}
-            setElems={setElems}
             modifyElem={modifyElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )
@@ -92,10 +91,9 @@ export const Operation = ({ expression, setExpression }) => {
           <PowerPreset
             id={id}
             operator={operator}
-            setOperator={setOperator}
             elems={elems}
-            setElems={setElems}
             modifyElem={modifyElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )
@@ -105,10 +103,9 @@ export const Operation = ({ expression, setExpression }) => {
           <RootPreset
             id={id}
             operator={operator}
-            setOperator={setOperator}
             elems={elems}
-            setElems={setElems}
             modifyElem={modifyElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )

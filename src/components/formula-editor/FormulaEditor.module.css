@@ -5,10 +5,11 @@
 .canvas {
     padding: 10px;
     background: #ffffff;
-    min-height: 100px;
+    min-height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: auto;
 }
 .buttons {
     padding: 10px;
@@ -16,4 +17,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.presets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: white;
+}
+.preset {
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+}
+.addition {
+    background: #c6ffc6;
+}
+.subtraction {
+    background: #ffc6c6;
+}
+.multiplication {
+    background: #f5c6ff;
+}
+.division {
+    background: #c6fffa;
+}
+.power {
+    background: #ffdec6;
+}
+.root {
+    background: #c6c9ff;
 }
