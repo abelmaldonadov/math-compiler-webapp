@@ -14,3 +14,11 @@ const EXPRESSION = {
   operator: "ADDITION",
   elems: [getElem(), getElem()],
 }
+
+// Presets
+const ELEM_ADDITION = {
+  type: "CONSTANT",
+  coefficient: 1.0,
+  name: "",
+  value: null,
+}

@@ -20,9 +20,8 @@
     justify-content: center;
     align-items: center;
 }
-.buttons {
+.previewButtons {
     padding: 10px;
-    background: #ffeded;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,4 +58,11 @@
 }
 .root {
     background: #c6c9ff;
+}
+.buttons {
+    padding: 10px;
+    background: #ffeded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

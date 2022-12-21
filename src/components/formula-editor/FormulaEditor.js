@@ -42,6 +42,9 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
   const saveSelected = () => {
     setSelected(JSON.parse(tempSelected))
   }
+  const cleanTempSelected = () => {
+    setTempSelected("")
+  }
 
   return (
     <div className={css.container}>
@@ -64,7 +67,10 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
             value={tempSelected}
             onChange={handleChangeTempSelected}
           />
-          <button onClick={saveSelected}>salvar</button>
+          <div className={css.previewButtons}>
+            <button onClick={saveSelected}>Salvar</button>
+            <button onClick={cleanTempSelected}>Limpiar</button>
+          </div>
         </div>
       )}
       <div className={css.presets}>
