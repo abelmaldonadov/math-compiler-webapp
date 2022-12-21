@@ -1,8 +1,16 @@
 import css from "./ResizableBox.module.css"
 import { Operation } from "../operation/Operation"
-import { getElem, getExpression } from "../../Constants"
+import { getElem } from "../../Constants"
+import { useEffect } from "react"
 
-export const ResizableBox = ({ elem, modifyElem }) => {
+export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
+  useEffect(() => {
+    if (!!selected && selected.id === elem.id) {
+      console.log("updated", selected.id)
+      modifyElem({ ...selected, id: elem.id })
+    }
+  }, [selected])
+
   const handleChangeCoefficient = (e) => {
     modifyElem({ ...elem, coefficient: e.target.value })
   }
@@ -20,8 +28,13 @@ export const ResizableBox = ({ elem, modifyElem }) => {
     modifyElem(newElem)
   }
 
+  const handleSelectElem = (e) => {
+    e.stopPropagation()
+    setSelected(elem)
+  }
+
   return (
-    <div className={css.container}>
+    <div className={css.container} onClick={handleSelectElem}>
       {elem.type === "CONSTANT" && (
         <input
           className={css.input}
@@ -44,6 +57,8 @@ export const ResizableBox = ({ elem, modifyElem }) => {
               expression={elem.value}
               modifyExpression={modifyExpression}
               handleClickCloseExpression={handleClickCloseExpression}
+              setSelected={setSelected}
+              selected={selected}
             />
           )}
         </>

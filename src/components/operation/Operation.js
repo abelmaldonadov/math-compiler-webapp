@@ -11,6 +11,8 @@ export const Operation = ({
   expression,
   modifyExpression,
   handleClickCloseExpression,
+  selected,
+  setSelected,
 }) => {
   const handleClickMoreElem = () => {
     let newExp = { ...expression }
@@ -33,6 +35,8 @@ export const Operation = ({
             modifyElem={modifyElem}
             handleClickMoreElem={handleClickMoreElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )
@@ -43,6 +47,8 @@ export const Operation = ({
             expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )
@@ -54,6 +60,8 @@ export const Operation = ({
             modifyElem={modifyElem}
             handleClickMoreElem={handleClickMoreElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )
@@ -64,6 +72,8 @@ export const Operation = ({
             expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )
@@ -74,6 +84,8 @@ export const Operation = ({
             expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )
@@ -84,6 +96,8 @@ export const Operation = ({
             expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       )

@@ -6,12 +6,20 @@ export const AdditionPreset = ({
   modifyElem,
   handleClickMoreElem,
   handleClickCloseExpression,
+  selected,
+  setSelected,
 }) => {
   return (
     <div className={css.container}>
       <span>SUM</span>
       {expression.elems.map((item) => (
-        <ResizableBox key={item.id} elem={item} modifyElem={modifyElem} />
+        <ResizableBox
+          key={item.id}
+          elem={item}
+          modifyElem={modifyElem}
+          selected={selected}
+          setSelected={setSelected}
+        />
       ))}
       <button className={css.more} onClick={handleClickMoreElem}>
         +

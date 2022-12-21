@@ -6,11 +6,16 @@ import { getElem, getExpression } from "../../Constants"
 export const FormulaEditor = ({ formula, onSaveFormula }) => {
   const [expression, setExpression] = useState(null)
   const [selected, setSelected] = useState(null)
+  const [tempSelected, setTempSelected] = useState("")
 
   useEffect(() => {
     setExpression({ ...formula })
     console.log("loaded...")
   }, [])
+
+  useEffect(() => {
+    setTempSelected(JSON.stringify(selected))
+  }, [selected])
 
   const handleSaveFormula = () => {
     onSaveFormula({ ...expression })
@@ -31,6 +36,12 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
   const handleChangeDecimalTreat = (e) => {
     setExpression({ ...expression, decimalTreat: e.target.value })
   }
+  const handleChangeTempSelected = (e) => {
+    setTempSelected(e.target.value)
+  }
+  const saveSelected = () => {
+    setSelected(JSON.parse(tempSelected))
+  }
 
   return (
     <div className={css.container}>
@@ -40,12 +51,22 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
             expression={expression}
             handleClickCloseExpression={handleClickCloseExpression}
             modifyExpression={modifyExpression}
+            selected={selected}
+            setSelected={setSelected}
           />
         )}
       </div>
-      <div className={css.preview}>
-        {selected && <span>{JSON.stringify(selected)}</span>}
-      </div>
+      {selected && (
+        <div className={css.preview}>
+          <textarea
+            rows="10"
+            cols={100}
+            value={tempSelected}
+            onChange={handleChangeTempSelected}
+          />
+          <button onClick={saveSelected}>salvar</button>
+        </div>
+      )}
       <div className={css.presets}>
         <div className={`${css.preset} ${css.addition}`}>
           <span>SUMA</span>
