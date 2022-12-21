@@ -11,6 +11,14 @@
     align-items: center;
     overflow-x: auto;
 }
+.preview {
+    background: #f3f3f3;
+    padding: 10px;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .buttons {
     padding: 10px;
     background: #ffeded;
@@ -29,6 +37,9 @@
     cursor: pointer;
     padding: 5px;
     margin: 5px;
+}
+.preset:hover {
+    border: 1px solid #f58b8b;
 }
 .addition {
     background: #c6ffc6;

@@ -2,63 +2,49 @@ import css from "./FormulaEditor.module.css"
 import { Operation } from "../operation/Operation"
 import { useEffect, useState } from "react"
 import { getElem, getExpression } from "../../Constants"
-import uuid from "react-uuid"
 
 export const FormulaEditor = ({ formula, onSaveFormula }) => {
-  const [id, setId] = useState(uuid())
-  const [decimalTreat, setDecimalTreat] = useState("DECIMAL")
-  const [operator, setOperator] = useState("ADDITION")
-  const [elems, setElems] = useState([getElem(), getElem()])
+  const [expression, setExpression] = useState(null)
+  const [selected, setSelected] = useState(null)
 
   useEffect(() => {
-    loadFormula()
+    setExpression({ ...formula })
+    console.log("loaded...")
   }, [])
 
-  const loadFormula = () => {
-    if (!!formula) {
-      setDecimalTreat(formula.decimalTreat)
-      setOperator(formula.operator)
-      setElems(formula.elems)
-      console.log("loaded...")
-    } else {
-      const expression = getExpression()
-      setDecimalTreat(expression.decimalTreat)
-      setOperator(expression.operator)
-      setElems(expression.elems)
-      console.error("formula not found")
-    }
-  }
-
   const handleSaveFormula = () => {
-    const finalExpression = { id, decimalTreat, operator, elems }
-    onSaveFormula(finalExpression)
-    console.log("saved...", finalExpression)
+    onSaveFormula({ ...expression })
+    console.log("saved...", expression)
   }
   const handleResetFormula = () => {
-    const expression = getExpression()
-    setDecimalTreat(expression.decimalTreat)
-    setOperator(expression.operator)
-    setElems(expression.elems)
+    setExpression(getExpression())
     console.log("formula reset")
   }
 
-  const handleChangeDecimalTreat = (e) => {
-    setDecimalTreat(e.target.value)
+  const handleClickCloseExpression = () => {
+    setExpression(null)
+  }
+  const modifyExpression = (exp) => {
+    setExpression(exp)
   }
 
-  const modifyExpression = ({ decimalTreat, operator, elems }) => {
-    setDecimalTreat(decimalTreat)
-    setOperator(operator)
-    setElems(elems)
+  const handleChangeDecimalTreat = (e) => {
+    setExpression({ ...expression, decimalTreat: e.target.value })
   }
 
   return (
     <div className={css.container}>
       <div className={css.canvas}>
-        <Operation
-          expression={{ id, decimalTreat, operator, elems }}
-          modifyExpression={modifyExpression}
-        />
+        {!!expression && (
+          <Operation
+            expression={expression}
+            handleClickCloseExpression={handleClickCloseExpression}
+            modifyExpression={modifyExpression}
+          />
+        )}
+      </div>
+      <div className={css.preview}>
+        {selected && <span>{JSON.stringify(selected)}</span>}
       </div>
       <div className={css.presets}>
         <div className={`${css.preset} ${css.addition}`}>
@@ -81,11 +67,16 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
         </div>
       </div>
       <div className={css.buttons}>
-        <select onChange={handleChangeDecimalTreat} value={decimalTreat}>
-          <option value="DECIMAL">Decimal</option>
-          <option value="TRUNCATE">Truncado</option>
-          <option value="ROUND">Redondeado</option>
-        </select>
+        {!!expression && (
+          <select
+            onChange={handleChangeDecimalTreat}
+            value={expression.decimalTreat}
+          >
+            <option value="DECIMAL">Decimal</option>
+            <option value="TRUNCATE">Truncado</option>
+            <option value="ROUND">Redondeado</option>
+          </select>
+        )}
         <button onClick={handleSaveFormula}>Guardar</button>
         <button onClick={handleResetFormula}>Reiniciar</button>
       </div>

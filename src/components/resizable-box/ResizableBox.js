@@ -1,34 +1,28 @@
-import { useEffect, useState } from "react"
 import css from "./ResizableBox.module.css"
 import { Operation } from "../operation/Operation"
+import { getElem, getExpression } from "../../Constants"
 
 export const ResizableBox = ({ elem, modifyElem }) => {
-  const id = elem.id
-  const [type, setType] = useState(elem.type)
-  const [coefficient, setCoefficient] = useState(elem.coefficient)
-  const [name, setName] = useState(elem.name)
-  const [value, setValue] = useState(elem.value)
-
-  useEffect(() => {
-    modifyElem({ id, type, coefficient, name, value })
-  }, [type, coefficient, name, value])
-
-  const handleChangeType = (e) => {
-    setType(e.target.value)
-  }
   const handleChangeCoefficient = (e) => {
-    setCoefficient(e.target.value)
+    modifyElem({ ...elem, coefficient: e.target.value })
   }
   const handleChangeName = (e) => {
-    setName(e.target.value)
+    modifyElem({ ...elem, name: e.target.value })
   }
-  const handleChangeValue = (e) => {
-    setValue(e)
+
+  const handleClickCloseExpression = () => {
+    let newElem = { ...elem }
+    modifyElem({ ...getElem(), id: newElem.id })
+  }
+  const modifyExpression = (exp) => {
+    let newElem = { ...elem }
+    newElem.value = exp
+    modifyElem(newElem)
   }
 
   return (
     <div className={css.container}>
-      {type === "CONSTANT" && (
+      {elem.type === "CONSTANT" && (
         <input
           className={css.input}
           type="text"
@@ -36,12 +30,21 @@ export const ResizableBox = ({ elem, modifyElem }) => {
           onChange={handleChangeCoefficient}
         />
       )}
-      {type === "VARIABLE" && (
+      {elem.type === "VARIABLE" && (
         <>
-          {value === null ? (
-            <span>{name}</span>
+          {elem.value === null ? (
+            <input
+              className={css.input}
+              type="text"
+              value={elem.name}
+              onChange={handleChangeName}
+            />
           ) : (
-            <Operation expression={value} setExpression={handleChangeValue} />
+            <Operation
+              expression={elem.value}
+              modifyExpression={modifyExpression}
+              handleClickCloseExpression={handleClickCloseExpression}
+            />
           )}
         </>
       )}

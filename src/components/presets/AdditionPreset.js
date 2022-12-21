@@ -2,8 +2,7 @@ import css from "./AdditionPreset.module.css"
 import { ResizableBox } from "../resizable-box/ResizableBox"
 
 export const AdditionPreset = ({
-  id,
-  elems,
+  expression,
   modifyElem,
   handleClickMoreElem,
   handleClickCloseExpression,
@@ -11,7 +10,7 @@ export const AdditionPreset = ({
   return (
     <div className={css.container}>
       <span>SUM</span>
-      {elems.map((item) => (
+      {expression.elems.map((item) => (
         <ResizableBox key={item.id} elem={item} modifyElem={modifyElem} />
       ))}
       <button className={css.more} onClick={handleClickMoreElem}>

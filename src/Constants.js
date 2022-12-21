@@ -12,5 +12,5 @@ const ELEM = {
 const EXPRESSION = {
   decimalTreat: "DECIMAL",
   operator: "ADDITION",
-  elems: [{ ...getElem() }],
+  elems: [getElem(), getElem()],
 }

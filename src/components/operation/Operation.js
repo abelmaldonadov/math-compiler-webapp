@@ -5,44 +5,31 @@ import { DivisionPreset } from "../presets/DivisionPreset"
 import { PowerPreset } from "../presets/PowerPreset"
 import { RootPreset } from "../presets/RootPreset"
 import css from "./Operation.module.css"
-import { useEffect, useState } from "react"
-import { getElem, getExpression } from "../../Constants"
+import { getElem } from "../../Constants"
 
-export const Operation = ({ expression, modifyExpression }) => {
-  const [id, setId] = useState(expression.id)
-  const [operator, setOperator] = useState(expression.operator)
-  const [elems, setElems] = useState(expression.elems)
-
-  useEffect(() => {
-    modifyExpression({ ...expression, operator, elems })
-  }, [id, operator, elems])
+export const Operation = ({
+  expression,
+  modifyExpression,
+  handleClickCloseExpression,
+}) => {
+  const handleClickMoreElem = () => {
+    let newExp = { ...expression }
+    newExp.elems.push(getElem())
+    modifyExpression(newExp)
+  }
 
   const modifyElem = (e) => {
-    let newElems = [...elems]
-    newElems = newElems.map((item) => (item.id === e.id ? e : item))
-    setElems(newElems)
-  }
-  const handleClickMoreElem = () => {
-    let newElems = [...elems]
-    newElems.push(getElem())
-    setElems(newElems)
-  }
-  const handleClickCloseElem = (id) => {
-    let newElems = [...elems]
-    newElems = newElems.filter((item) => item.id !== id)
-    setElems(newElems)
-  }
-  const handleClickCloseExpression = () => {
-    modifyExpression({ ...getExpression() })
+    let newExp = { ...expression }
+    newExp.elems = newExp.elems.map((item) => (item.id === e.id ? e : item))
+    modifyExpression(newExp)
   }
 
-  switch (operator) {
+  switch (expression.operator) {
     case "ADDITION":
       return (
         <div className={css.container}>
           <AdditionPreset
-            id={id}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
             handleClickMoreElem={handleClickMoreElem}
             handleClickCloseExpression={handleClickCloseExpression}
@@ -53,8 +40,7 @@ export const Operation = ({ expression, modifyExpression }) => {
       return (
         <div className={css.container}>
           <SubtractionPreset
-            id={id}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
           />
@@ -64,12 +50,10 @@ export const Operation = ({ expression, modifyExpression }) => {
       return (
         <div className={css.container}>
           <MultiplicationPreset
-            id={id}
-            operator={operator}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
-            handleClickCloseExpression={handleClickCloseExpression}
             handleClickMoreElem={handleClickMoreElem}
+            handleClickCloseExpression={handleClickCloseExpression}
           />
         </div>
       )
@@ -77,9 +61,7 @@ export const Operation = ({ expression, modifyExpression }) => {
       return (
         <div className={css.container}>
           <DivisionPreset
-            id={id}
-            operator={operator}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
           />
@@ -89,9 +71,7 @@ export const Operation = ({ expression, modifyExpression }) => {
       return (
         <div className={css.container}>
           <PowerPreset
-            id={id}
-            operator={operator}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
           />
@@ -101,9 +81,7 @@ export const Operation = ({ expression, modifyExpression }) => {
       return (
         <div className={css.container}>
           <RootPreset
-            id={id}
-            operator={operator}
-            elems={elems}
+            expression={expression}
             modifyElem={modifyElem}
             handleClickCloseExpression={handleClickCloseExpression}
           />

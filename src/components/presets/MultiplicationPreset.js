@@ -2,8 +2,7 @@ import css from "./MultiplicationPreset.module.css"
 import { ResizableBox } from "../resizable-box/ResizableBox"
 
 export const MultiplicationPreset = ({
-  id,
-  elems,
+  expression,
   modifyElem,
   handleClickCloseExpression,
   handleClickMoreElem,
@@ -11,7 +10,7 @@ export const MultiplicationPreset = ({
   return (
     <div className={css.container}>
       <span>PRO</span>
-      {elems.map((item) => (
+      {expression.elems.map((item) => (
         <ResizableBox key={item.id} elem={item} modifyElem={modifyElem} />
       ))}
       <button className={css.more} onClick={handleClickMoreElem}>
