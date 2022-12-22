@@ -5,13 +5,9 @@ html {
 * {
     box-sizing: border-box;
 }
-.header {
-    background: cyan;
-}
 .box {
     background: cornsilk;
     padding: 10px;
     min-height: 75px;
     width: 100%;
-    max-width: 100%;
 }

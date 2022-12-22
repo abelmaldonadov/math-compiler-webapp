@@ -5,14 +5,21 @@ import { getExpression } from "../../Constants"
 import { Operators } from "../operators/Operators"
 import { EditableElem } from "../editable-elem/EditableElem"
 
-export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
+export const FormulaEditor = ({
+  formula,
+  onSaveFormula,
+  variablesTable,
+  isDev,
+}) => {
   const [expression, setExpression] = useState(null)
+  const [variables, setVariables] = useState(null)
   const [selected, setSelected] = useState(null)
   const [tempSelected, setTempSelected] = useState(null)
 
   useEffect(() => {
-    if (!formula) return
+    if (!formula || !variablesTable) return
     setExpression({ ...formula })
+    setVariables([...variablesTable])
     console.log("loaded...")
   }, [])
 
@@ -81,6 +88,7 @@ export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
             modifyExpression={modifyExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         )}
       </div>
@@ -96,9 +104,11 @@ export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
                     handleChangeTempElem={handleChangeTempElem}
                     handleClickCloseTempElem={handleClickCloseTempElem}
                     isClosable={
-                      tempSelected.operator === "ADDITION" ||
-                      tempSelected.operator === "MULTIPLICATION"
+                      (tempSelected.operator === "ADDITION" ||
+                        tempSelected.operator === "MULTIPLICATION") &&
+                      tempSelected.elems.length > 2
                     }
+                    variables={variables}
                   />
                 ))}
             </div>

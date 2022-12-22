@@ -7,6 +7,7 @@ export const PowerPreset = ({
   handleClickCloseExpression,
   selected,
   setSelected,
+  variables,
 }) => {
   return (
     <div className={css.container}>
@@ -18,6 +19,7 @@ export const PowerPreset = ({
           modifyElem={modifyElem}
           selected={selected}
           setSelected={setSelected}
+          variables={variables}
         />
       ))}
       <span className={css.close} onClick={handleClickCloseExpression}>

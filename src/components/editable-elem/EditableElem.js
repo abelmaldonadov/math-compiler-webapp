@@ -6,6 +6,7 @@ export const EditableElem = ({
   handleChangeTempElem,
   handleClickCloseTempElem,
   isClosable,
+  variables,
 }) => {
   const modifyElemType = (e) => {
     e.stopPropagation()
@@ -63,13 +64,18 @@ export const EditableElem = ({
         />
       )}
       {elem.type === "VARIABLE" && (
-        <input
+        <select
           className={css.input}
-          type="text"
           name="name"
           value={elem.name}
           onChange={modifyElem}
-        />
+        >
+          {variables.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
       )}
       {elem.type === "EXPRESSION" && (
         <select
@@ -79,7 +85,7 @@ export const EditableElem = ({
         >
           <option value="ADDITION">Suma</option>
           <option value="SUBTRACTION">Diferencia</option>
-          <option value="MULTIPLICATION">Multiplicación</option>
+          <option value="MULTIPLICATION">Producto</option>
           <option value="DIVISION">División</option>
           <option value="POWER">Potencia</option>
           <option value="ROOT">Radicación</option>

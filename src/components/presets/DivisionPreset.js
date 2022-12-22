@@ -7,6 +7,7 @@ export const DivisionPreset = ({
   handleClickCloseExpression,
   selected,
   setSelected,
+  variables,
 }) => {
   return (
     <div className={css.container}>
@@ -19,6 +20,7 @@ export const DivisionPreset = ({
             modifyElem={modifyElem}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         ))}
       </div>

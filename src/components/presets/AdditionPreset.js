@@ -8,6 +8,7 @@ export const AdditionPreset = ({
   handleClickCloseExpression,
   selected,
   setSelected,
+  variables,
 }) => {
   return (
     <div className={css.container}>
@@ -19,6 +20,7 @@ export const AdditionPreset = ({
           modifyElem={modifyElem}
           selected={selected}
           setSelected={setSelected}
+          variables={variables}
         />
       ))}
       <button className={css.more} onClick={handleClickMoreElem}>

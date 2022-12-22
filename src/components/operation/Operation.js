@@ -14,6 +14,7 @@ export const Operation = ({
   handleClickCloseExpression,
   selected,
   setSelected,
+  variables,
 }) => {
   const [isSelected, setIsSelected] = useState(false)
 
@@ -58,6 +59,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )
@@ -73,6 +75,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )
@@ -89,6 +92,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )
@@ -104,6 +108,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )
@@ -119,6 +124,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )
@@ -134,6 +140,7 @@ export const Operation = ({
             handleClickCloseExpression={handleClickCloseExpression}
             selected={selected}
             setSelected={setSelected}
+            variables={variables}
           />
         </div>
       )

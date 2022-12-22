@@ -16,7 +16,7 @@ export const App = () => {
           operator: "ADDITION",
           elems: [
             { ...getElem(), coefficient: 1.0 },
-            { ...getElem(), type: "VARIABLE", name: "var456" },
+            { ...getElem(), type: "VARIABLE", name: "2" },
             { ...getElem(), coefficient: 3.0 },
             {
               ...getElem(),
@@ -26,7 +26,7 @@ export const App = () => {
                 operator: "MULTIPLICATION",
                 elems: [
                   { ...getElem(), coefficient: 10.6 },
-                  { ...getElem(), coefficient: 0.5 },
+                  { ...getElem(), type: "VARIABLE", name: "3" },
                 ],
               },
             },
@@ -48,7 +48,7 @@ export const App = () => {
                 ...getExpression(),
                 operator: "ROOT",
                 elems: [
-                  { ...getElem(), type: "VARIABLE", name: "var123" },
+                  { ...getElem(), type: "VARIABLE", name: "1" },
                   { ...getElem(), coefficient: 2.0 },
                 ],
               },
@@ -73,9 +73,20 @@ export const App = () => {
 
   const saveFormula = () => {}
 
+  const variablesTable = [
+    { id: "1", name: "Sueldo Básico", abbr: "BAS" },
+    { id: "2", name: "CTS", abbr: "CTS" },
+    { id: "3", name: "Almuerzos", abbr: "ALM" },
+  ]
+
   return (
     <div className="box">
-      <FormulaEditor formula={formula} onSaveFormula={saveFormula} isDev />
+      <FormulaEditor
+        formula={formula}
+        onSaveFormula={saveFormula}
+        variablesTable={variablesTable}
+        isDev
+      />
     </div>
   )
 }

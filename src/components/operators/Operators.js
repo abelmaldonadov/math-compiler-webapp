@@ -45,7 +45,7 @@ export const Operators = ({ tempSelected, setTempSelected }) => {
         }`}
         onClick={() => handleChangeOperator("MULTIPLICATION")}
       >
-        <span>MULTIPLICACIÓN</span>
+        <span>PRODUCTO</span>
       </div>
       <div
         className={`${css.operator} ${css.division} ${

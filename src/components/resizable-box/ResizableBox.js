@@ -2,12 +2,15 @@ import css from "./ResizableBox.module.css"
 import { Operation } from "../operation/Operation"
 import { getElem } from "../../Constants"
 
-export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
+export const ResizableBox = ({
+  elem,
+  modifyElem,
+  selected,
+  setSelected,
+  variables,
+}) => {
   const handleChangeCoefficient = (e) => {
     modifyElem({ ...elem, coefficient: e.target.value })
-  }
-  const handleChangeName = (e) => {
-    modifyElem({ ...elem, name: e.target.value })
   }
 
   const handleClickCloseExpression = (e) => {
@@ -20,6 +23,10 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
     let newElem = { ...elem }
     newElem.value = exp
     modifyElem(newElem)
+  }
+
+  const getVariableAbbr = () => {
+    return variables.find((item) => item.id === elem.name).abbr
   }
 
   return (
@@ -36,8 +43,8 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
         <input
           className={`${css.input} ${css.variable}`}
           type="text"
-          value={elem.name}
-          onChange={handleChangeName}
+          value={getVariableAbbr()}
+          readOnly
         />
       )}
       {elem.type === "EXPRESSION" && (
@@ -47,6 +54,7 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
           handleClickCloseExpression={handleClickCloseExpression}
           setSelected={setSelected}
           selected={selected}
+          variables={variables}
         />
       )}
     </div>
