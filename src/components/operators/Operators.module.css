@@ -1,0 +1,38 @@
+.operators {
+    padding: 10px;
+}
+.operator {
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+}
+.operator:hover {
+    border: 1px solid #f58b8b;
+    padding: 4px;
+}
+.selected {
+    border: 2px solid #f58b8b;
+    padding: 3px;
+}
+.selected:hover {
+    border: 2px solid #f58b8b;
+    padding: 3px;
+}
+.addition {
+    background: #c6ffc6;
+}
+.subtraction {
+    background: #ffc6c6;
+}
+.multiplication {
+    background: #f5c6ff;
+}
+.division {
+    background: #c6fffa;
+}
+.power {
+    background: #ffdec6;
+}
+.root {
+    background: #c6c9ff;
+}

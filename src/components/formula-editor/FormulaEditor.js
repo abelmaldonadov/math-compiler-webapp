@@ -1,23 +1,29 @@
 import css from "./FormulaEditor.module.css"
 import { Operation } from "../operation/Operation"
 import { useEffect, useState } from "react"
-import { getElem, getExpression } from "../../Constants"
+import { getExpression } from "../../Constants"
+import { Operators } from "../operators/Operators"
+import { EditableElem } from "../editable-elem/EditableElem"
 
-export const FormulaEditor = ({ formula, onSaveFormula }) => {
+export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
   const [expression, setExpression] = useState(null)
   const [selected, setSelected] = useState(null)
-  const [tempSelected, setTempSelected] = useState("")
+  const [tempSelected, setTempSelected] = useState(null)
 
   useEffect(() => {
+    if (!formula) return
     setExpression({ ...formula })
     console.log("loaded...")
   }, [])
 
   useEffect(() => {
-    setTempSelected(JSON.stringify(selected))
+    if (!selected) return
+    setTempSelected({ ...selected })
+    console.log("selected", selected.id)
   }, [selected])
 
   const handleSaveFormula = () => {
+    if (!window.confirm("¿Está segur@ de guardar de esta expresión?")) return
     onSaveFormula({ ...expression })
     console.log("saved...", expression)
   }
@@ -26,9 +32,17 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
     console.log("formula reset")
   }
 
-  const handleClickCloseExpression = () => {
+  const handleClickCloseExpression = (e) => {
+    e.stopPropagation()
     setExpression(null)
+    setSelected(null)
   }
+  const handleClickCloseTempElem = (e) => {
+    let newExp = { ...tempSelected }
+    newExp.elems = newExp.elems.filter((item) => item.id !== e.id)
+    setTempSelected(newExp)
+  }
+
   const modifyExpression = (exp) => {
     setExpression(exp)
   }
@@ -37,18 +51,35 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
     setExpression({ ...expression, decimalTreat: e.target.value })
   }
   const handleChangeTempSelected = (e) => {
-    setTempSelected(e.target.value)
+    setTempSelected(e)
   }
+  const handleChangeTempSelectedDebug = (e) => {
+    setTempSelected(JSON.parse(e.target.value))
+  }
+  const handleChangeTempElem = (e) => {
+    let newExp = { ...expression }
+    newExp.elems = newExp.elems.map((item) => (item.id === e.id ? e : item))
+    handleChangeTempSelected(newExp)
+  }
+
   const saveSelected = () => {
-    setSelected(JSON.parse(tempSelected))
+    if (!tempSelected) return
+    setSelected(tempSelected)
   }
   const cleanTempSelected = () => {
-    setTempSelected("")
+    setTempSelected(null)
+    setSelected(null)
+  }
+
+  const handleChangeOperator = (operator) => {
+    let newTempSelected = { ...tempSelected }
+    newTempSelected = { ...newTempSelected, operator }
+    setTempSelected(newTempSelected)
   }
 
   return (
     <div className={css.container}>
-      <div className={css.canvas}>
+      <div className={css.canvas} onClick={cleanTempSelected}>
         {!!expression && (
           <Operation
             expression={expression}
@@ -59,40 +90,42 @@ export const FormulaEditor = ({ formula, onSaveFormula }) => {
           />
         )}
       </div>
-      {selected && (
+      {!!selected && (
         <div className={css.preview}>
-          <textarea
-            rows="10"
-            cols={100}
-            value={tempSelected}
-            onChange={handleChangeTempSelected}
-          />
-          <div className={css.previewButtons}>
-            <button onClick={saveSelected}>Salvar</button>
-            <button onClick={cleanTempSelected}>Limpiar</button>
+          <div className={css.editor}>
+            <div className={css.elems}>
+              {!!tempSelected &&
+                tempSelected.elems.map((item, index) => (
+                  <EditableElem
+                    key={item.id}
+                    elem={item}
+                    handleChangeTempElem={handleChangeTempElem}
+                    handleClickCloseTempElem={handleClickCloseTempElem}
+                    isClosable={
+                      tempSelected.operator === "ADDITION" ||
+                      tempSelected.operator === "MULTIPLICATION"
+                    }
+                  />
+                ))}
+            </div>
+            <Operators
+              tempSelected={tempSelected}
+              handleChangeOperator={handleChangeOperator}
+            />
+            <div className={css.previewButtons}>
+              <button onClick={saveSelected}>Salvar</button>
+              <button onClick={cleanTempSelected}>Cerrar</button>
+            </div>
           </div>
+          {!!isDev && (
+            <textarea
+              className={css.debugger}
+              value={JSON.stringify(tempSelected)}
+              onChange={handleChangeTempSelectedDebug}
+            />
+          )}
         </div>
       )}
-      <div className={css.presets}>
-        <div className={`${css.preset} ${css.addition}`}>
-          <span>SUMA</span>
-        </div>
-        <div className={`${css.preset} ${css.subtraction}`}>
-          <span>DIFERENCIA</span>
-        </div>
-        <div className={`${css.preset} ${css.multiplication}`}>
-          <span>MULTIPLICACIÓN</span>
-        </div>
-        <div className={`${css.preset} ${css.division}`}>
-          <span>DIVISIÓN</span>
-        </div>
-        <div className={`${css.preset} ${css.power}`}>
-          <span>POTENCIA</span>
-        </div>
-        <div className={`${css.preset} ${css.root}`}>
-          <span>RADICACIÓN</span>
-        </div>
-      </div>
       <div className={css.buttons}>
         {!!expression && (
           <select

@@ -3,3 +3,12 @@
     justify-content: center;
     align-items: center;
 }
+.container:hover {
+    border: 1px solid #f58b8b;
+}
+.selected {
+    border: 2px solid #f58b8b;
+}
+.selected:hover {
+    border: 2px solid #f58b8b;
+}

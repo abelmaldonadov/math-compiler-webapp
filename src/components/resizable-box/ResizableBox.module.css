@@ -2,9 +2,6 @@
     padding: 2px;
     margin: 2px;
 }
-.container:hover {
-    border: 1px solid #f58b8b;
-}
 .input {
     width: 50px;
 }

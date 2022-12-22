@@ -13,51 +13,37 @@
 }
 .preview {
     background: #f3f3f3;
-    padding: 10px;
     min-height: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+.editor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.elems {
+    height: 180px;
+    width: 600px;
+    padding: 5px;
+    background: #fdf7db;
+    overflow-y: auto;
+}
 .previewButtons {
-    padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.presets {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background: white;
-}
-.preset {
-    cursor: pointer;
+.previewButtons > button {
     padding: 5px;
     margin: 5px;
 }
-.preset:hover {
-    border: 1px solid #f58b8b;
-}
-.addition {
-    background: #c6ffc6;
-}
-.subtraction {
-    background: #ffc6c6;
-}
-.multiplication {
-    background: #f5c6ff;
-}
-.division {
-    background: #c6fffa;
-}
-.power {
-    background: #ffdec6;
-}
-.root {
-    background: #c6c9ff;
+.debugger {
+    width: 100%;
+    height: 100px;
 }
 .buttons {
     padding: 10px;
@@ -65,4 +51,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.buttons > * {
+    padding: 5px;
+    margin: 5px;
 }

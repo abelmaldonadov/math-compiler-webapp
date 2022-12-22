@@ -10,17 +10,17 @@ export const App = () => {
     elems: [
       {
         ...getElem(),
-        type: "VARIABLE",
+        type: "EXPRESSION",
         value: {
           ...getExpression(),
           operator: "ADDITION",
           elems: [
             { ...getElem(), coefficient: 1.0 },
-            { ...getElem(), coefficient: 2.0 },
+            { ...getElem(), type: "VARIABLE", name: "var456" },
             { ...getElem(), coefficient: 3.0 },
             {
               ...getElem(),
-              type: "VARIABLE",
+              type: "EXPRESSION",
               value: {
                 ...getExpression(),
                 operator: "MULTIPLICATION",
@@ -36,26 +36,26 @@ export const App = () => {
       },
       {
         ...getElem(),
-        type: "VARIABLE",
+        type: "EXPRESSION",
         value: {
           ...getExpression(),
           operator: "SUBTRACTION",
           elems: [
             {
               ...getElem(),
-              type: "VARIABLE",
+              type: "EXPRESSION",
               value: {
                 ...getExpression(),
                 operator: "ROOT",
                 elems: [
-                  { ...getElem(), coefficient: 64.0 },
+                  { ...getElem(), type: "VARIABLE", name: "var123" },
                   { ...getElem(), coefficient: 2.0 },
                 ],
               },
             },
             {
               ...getElem(),
-              type: "VARIABLE",
+              type: "EXPRESSION",
               value: {
                 ...getExpression(),
                 operator: "POWER",
@@ -75,7 +75,7 @@ export const App = () => {
 
   return (
     <div className="box">
-      <FormulaEditor formula={formula} onSaveFormula={saveFormula} />
+      <FormulaEditor formula={formula} onSaveFormula={saveFormula} isDev />
     </div>
   )
 }

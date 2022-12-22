@@ -1,16 +1,8 @@
 import css from "./ResizableBox.module.css"
 import { Operation } from "../operation/Operation"
 import { getElem } from "../../Constants"
-import { useEffect } from "react"
 
 export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
-  useEffect(() => {
-    if (!!selected && selected.id === elem.id) {
-      console.log("updated", selected.id)
-      modifyElem({ ...selected, id: elem.id })
-    }
-  }, [selected])
-
   const handleChangeCoefficient = (e) => {
     modifyElem({ ...elem, coefficient: e.target.value })
   }
@@ -18,9 +10,11 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
     modifyElem({ ...elem, name: e.target.value })
   }
 
-  const handleClickCloseExpression = () => {
+  const handleClickCloseExpression = (e) => {
+    e.stopPropagation()
     let newElem = { ...elem }
     modifyElem({ ...getElem(), id: newElem.id })
+    setSelected(null)
   }
   const modifyExpression = (exp) => {
     let newElem = { ...elem }
@@ -28,13 +22,8 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
     modifyElem(newElem)
   }
 
-  const handleSelectElem = (e) => {
-    e.stopPropagation()
-    setSelected(elem)
-  }
-
   return (
-    <div className={css.container} onClick={handleSelectElem}>
+    <div className={css.container}>
       {elem.type === "CONSTANT" && (
         <input
           className={css.input}
@@ -44,24 +33,21 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
         />
       )}
       {elem.type === "VARIABLE" && (
-        <>
-          {elem.value === null ? (
-            <input
-              className={css.input}
-              type="text"
-              value={elem.name}
-              onChange={handleChangeName}
-            />
-          ) : (
-            <Operation
-              expression={elem.value}
-              modifyExpression={modifyExpression}
-              handleClickCloseExpression={handleClickCloseExpression}
-              setSelected={setSelected}
-              selected={selected}
-            />
-          )}
-        </>
+        <input
+          className={css.input}
+          type="text"
+          value={elem.name}
+          onChange={handleChangeName}
+        />
+      )}
+      {elem.type === "EXPRESSION" && (
+        <Operation
+          expression={elem.value}
+          modifyExpression={modifyExpression}
+          handleClickCloseExpression={handleClickCloseExpression}
+          setSelected={setSelected}
+          selected={selected}
+        />
       )}
     </div>
   )

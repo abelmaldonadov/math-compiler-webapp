@@ -6,6 +6,7 @@ import { PowerPreset } from "../presets/PowerPreset"
 import { RootPreset } from "../presets/RootPreset"
 import css from "./Operation.module.css"
 import { getElem } from "../../Constants"
+import { useEffect, useState } from "react"
 
 export const Operation = ({
   expression,
@@ -14,6 +15,18 @@ export const Operation = ({
   selected,
   setSelected,
 }) => {
+  const [isSelected, setIsSelected] = useState(false)
+
+  useEffect(() => {
+    if (!!selected && selected.id === expression.id) {
+      console.log("updated", selected.id)
+      setIsSelected(true)
+      modifyExpression({ ...selected, id: expression.id })
+    } else {
+      setIsSelected(false)
+    }
+  }, [selected])
+
   const handleClickMoreElem = () => {
     let newExp = { ...expression }
     newExp.elems.push(getElem())
@@ -26,10 +39,18 @@ export const Operation = ({
     modifyExpression(newExp)
   }
 
+  const handleSelectExpression = (e) => {
+    e.stopPropagation()
+    setSelected(expression)
+  }
+
   switch (expression.operator) {
     case "ADDITION":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <AdditionPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -42,7 +63,10 @@ export const Operation = ({
       )
     case "SUBTRACTION":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <SubtractionPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -54,7 +78,10 @@ export const Operation = ({
       )
     case "MULTIPLICATION":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <MultiplicationPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -67,7 +94,10 @@ export const Operation = ({
       )
     case "DIVISION":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <DivisionPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -79,7 +109,10 @@ export const Operation = ({
       )
     case "POWER":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <PowerPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -91,7 +124,10 @@ export const Operation = ({
       )
     case "ROOT":
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <RootPreset
             expression={expression}
             modifyElem={modifyElem}
@@ -103,7 +139,10 @@ export const Operation = ({
       )
     default:
       return (
-        <div className={css.container}>
+        <div
+          className={`${css.container} ${isSelected ? css.selected : ""}`}
+          onClick={handleSelectExpression}
+        >
           <span>Formula not found...</span>
         </div>
       )

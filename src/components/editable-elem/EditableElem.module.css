@@ -1,0 +1,13 @@
+.container {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.type {
+    margin-right: 5px;
+}
+.close {
+    cursor: pointer;
+    padding-left: 5px;
+}
