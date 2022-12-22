@@ -10,15 +10,29 @@ export const EditableElem = ({
 }) => {
   const modifyElemType = (e) => {
     e.stopPropagation()
-    if (e.target.value === "EXPRESSION") {
-      handleChangeTempElem({
-        ...getElem(),
-        type: e.target.value,
-        id: elem.id,
-        value: getExpression(),
-      })
-    } else {
-      handleChangeTempElem({ ...getElem(), type: e.target.value, id: elem.id })
+    switch (e.target.value) {
+      case "EXPRESSION":
+        handleChangeTempElem({
+          ...getElem(),
+          type: e.target.value,
+          id: elem.id,
+          value: getExpression(),
+        })
+        break
+      case "VARIABLE":
+        handleChangeTempElem({
+          ...getElem(),
+          type: e.target.value,
+          id: elem.id,
+          name: variables[0].id,
+        })
+        break
+      default:
+        handleChangeTempElem({
+          ...getElem(),
+          type: e.target.value,
+          id: elem.id,
+        })
     }
   }
 
