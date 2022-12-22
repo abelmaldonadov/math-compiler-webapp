@@ -1,6 +1,17 @@
 import css from "./Operators.module.css"
+import { filterElemsByOperator } from "../../Constants"
 
-export const Operators = ({ tempSelected, handleChangeOperator }) => {
+export const Operators = ({ tempSelected, setTempSelected }) => {
+  const handleChangeOperator = (operator) => {
+    let newTempSelected = { ...tempSelected }
+    newTempSelected = { ...newTempSelected, operator }
+    newTempSelected.elems = filterElemsByOperator(
+      newTempSelected.elems,
+      operator
+    )
+    setTempSelected(newTempSelected)
+  }
+
   if (!tempSelected) {
     return (
       <span className={css.operators}>

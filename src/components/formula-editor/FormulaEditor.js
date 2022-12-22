@@ -57,7 +57,7 @@ export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
     setTempSelected(JSON.parse(e.target.value))
   }
   const handleChangeTempElem = (e) => {
-    let newExp = { ...expression }
+    let newExp = { ...tempSelected }
     newExp.elems = newExp.elems.map((item) => (item.id === e.id ? e : item))
     handleChangeTempSelected(newExp)
   }
@@ -69,12 +69,6 @@ export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
   const cleanTempSelected = () => {
     setTempSelected(null)
     setSelected(null)
-  }
-
-  const handleChangeOperator = (operator) => {
-    let newTempSelected = { ...tempSelected }
-    newTempSelected = { ...newTempSelected, operator }
-    setTempSelected(newTempSelected)
   }
 
   return (
@@ -110,7 +104,7 @@ export const FormulaEditor = ({ formula, onSaveFormula, isDev }) => {
             </div>
             <Operators
               tempSelected={tempSelected}
-              handleChangeOperator={handleChangeOperator}
+              setTempSelected={setTempSelected}
             />
             <div className={css.previewButtons}>
               <button onClick={saveSelected}>Salvar</button>

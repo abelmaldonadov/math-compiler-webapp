@@ -1,4 +1,5 @@
 import css from "./EditableElem.module.css"
+import { filterElemsByOperator, getElem, getExpression } from "../../Constants"
 
 export const EditableElem = ({
   elem,
@@ -6,6 +7,37 @@ export const EditableElem = ({
   handleClickCloseTempElem,
   isClosable,
 }) => {
+  const modifyElemType = (e) => {
+    e.stopPropagation()
+    if (e.target.value === "EXPRESSION") {
+      handleChangeTempElem({
+        ...getElem(),
+        type: e.target.value,
+        id: elem.id,
+        value: getExpression(),
+      })
+    } else {
+      handleChangeTempElem({ ...getElem(), type: e.target.value, id: elem.id })
+    }
+  }
+
+  const modifyElem = (e) => {
+    e.stopPropagation()
+    handleChangeTempElem({ ...elem, [e.target.name]: e.target.value })
+  }
+
+  const modifyExpressionOperator = (e) => {
+    e.stopPropagation()
+    handleChangeTempElem({
+      ...elem,
+      value: {
+        ...elem.value,
+        operator: e.target.value,
+        elems: filterElemsByOperator(elem.value.elems, e.target.value),
+      },
+    })
+  }
+
   if (!elem)
     return (
       <span className={css.container}>
@@ -16,28 +48,35 @@ export const EditableElem = ({
 
   return (
     <div className={css.container}>
-      <select
-        className={css.type}
-        name="type"
-        value={elem.type}
-        onChange={handleChangeTempElem}
-      >
+      <select className={css.input} value={elem.type} onChange={modifyElemType}>
         <option value="CONSTANT">Constante</option>
         <option value="VARIABLE">Variable</option>
         <option value="EXPRESSION">Expresion</option>
       </select>
       {elem.type === "CONSTANT" && (
         <input
+          className={css.input}
           type="number"
+          name="coefficient"
           value={elem.coefficient}
-          onChange={handleChangeTempElem}
+          onChange={modifyElem}
         />
       )}
       {elem.type === "VARIABLE" && (
-        <input type="text" value={elem.name} onChange={handleChangeTempElem} />
+        <input
+          className={css.input}
+          type="text"
+          name="name"
+          value={elem.name}
+          onChange={modifyElem}
+        />
       )}
       {elem.type === "EXPRESSION" && (
-        <select value={elem.value?.operator} onChange={handleChangeTempElem}>
+        <select
+          className={css.input}
+          value={elem.value?.operator}
+          onChange={modifyExpressionOperator}
+        >
           <option value="ADDITION">Suma</option>
           <option value="SUBTRACTION">Diferencia</option>
           <option value="MULTIPLICATION">Multiplicación</option>

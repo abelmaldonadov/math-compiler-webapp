@@ -27,14 +27,14 @@ export const ResizableBox = ({ elem, modifyElem, selected, setSelected }) => {
       {elem.type === "CONSTANT" && (
         <input
           className={css.input}
-          type="text"
+          type="number"
           value={elem.coefficient}
           onChange={handleChangeCoefficient}
         />
       )}
       {elem.type === "VARIABLE" && (
         <input
-          className={css.input}
+          className={`${css.input} ${css.variable}`}
           type="text"
           value={elem.name}
           onChange={handleChangeName}

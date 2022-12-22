@@ -15,10 +15,17 @@ const EXPRESSION = {
   elems: [getElem(), getElem()],
 }
 
-// Presets
-const ELEM_ADDITION = {
-  type: "CONSTANT",
-  coefficient: 1.0,
-  name: "",
-  value: null,
+export const filterElemsByOperator = (elems, operator) => {
+  return elems.filter((item, index) => {
+    if (
+      operator === "SUBTRACTION" ||
+      operator === "DIVISION" ||
+      operator === "POWER" ||
+      operator === "ROOT"
+    ) {
+      return index < 2
+    } else {
+      return true
+    }
+  })
 }

@@ -1,7 +1,14 @@
 .container {
     padding: 2px;
     margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .input {
-    width: 50px;
+    width: 55px;
+}
+.variable {
+    background: #fdffd0;
+    border: 1px dotted black;
 }

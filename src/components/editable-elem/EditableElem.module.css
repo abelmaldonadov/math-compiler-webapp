@@ -4,8 +4,9 @@
     justify-content: flex-start;
     align-items: center;
 }
-.type {
+.input {
     margin-right: 5px;
+    width: 150px;
 }
 .close {
     cursor: pointer;
