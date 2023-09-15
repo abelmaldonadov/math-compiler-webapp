@@ -71,7 +71,10 @@ export const App = () => {
     ],
   }
 
-  const saveFormula = () => {}
+  const saveFormula = (formula) => {
+    console.log(JSON.stringify(formula))
+    console.log(JSON.stringify(formula).length)
+  }
 
   const variablesTable = [
     { id: "1", name: "Sueldo Básico", abbr: "BAS" },
@@ -82,10 +85,11 @@ export const App = () => {
   return (
     <div className="box">
       <FormulaEditor
-        formula={formula}
+        formula={JSON.parse(
+          '{"decimalTreat":"DECIMAL","operator":"ADDITION","elems":[{"type":"CONSTANT","coefficient":1,"name":"","value":null,"id":"c55c5c3a-9dc0-b7f0-1f63-dbf71dd19ded"},{"type":"CONSTANT","coefficient":1,"name":"","value":null,"id":"f9903176-68e1-7c87-0e6b-20b6386dbc67"}],"id":"a327e82d-c74a-b909-c786-5b22344f8a69"}'
+        )}
         onSaveFormula={saveFormula}
         variablesTable={variablesTable}
-        isDev
       />
     </div>
   )
